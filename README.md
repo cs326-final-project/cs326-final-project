@@ -1,4 +1,4 @@
-# Team.TTV
+# Digital Mirror
 
 ## Team Names
 
@@ -12,6 +12,12 @@
 Our project will act as a "digital mirror" to examine and analyse a user's online presence through their interaction with various popular websites. We will use multiple APIs to disect the information a user produces and consumes. From this we will create a profile 
 
 ## Topic Requirements
+
+We plan to use MongoDB for data storage and management.
+
+We will also use Authentication and Password hashing.
+
+We will likely have copeus iteraction with 3rd Party APIs.
 
 ## Brainstorm
 
