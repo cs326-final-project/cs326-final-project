@@ -1,5 +1,5 @@
 # Team.TTV
-
+# Amherst Analytica
 ## Team Names
 
 - [Tyler Charlantini](./Tyler_Charlantini.md)
