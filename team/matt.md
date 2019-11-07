@@ -1,1 +1,0 @@
-My name is Matt. My expertise is any backend development as long as I'm not forced to jump through bullshit hoops (e.g. being forced to do work in a classroom instead of an environment where I'll actually be able to be productive) while doing so.
