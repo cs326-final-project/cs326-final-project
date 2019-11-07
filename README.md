@@ -17,14 +17,15 @@ We plan to use MongoDB for data storage and management.
 
 We will also use Authentication and Password hashing.
 
-We will likely have copeus iteraction with 3rd Party APIs.
+We will likely have copious iteraction with 3rd Party APIs.
 
 ## Brainstorm
 
-- Track sentiment anaysis from online presence
+- Track sentiment analysis from online presence
+- Allow users to construct a comprehensive review and analysis of their own online interactions
 - Spotify, reddit, facebook, twitter, instagram, weather, ...
 - Track feelings over time and create analysis of interaction and presence
 - Use natural language model to determine sentiment
 - "Digital Mirror" (Definitely not related to Black Mirror...)
 - Encourages people to be more mindful of online presence and what they consume
-- Transparency: Doing it for benefit of user
+- Transparency: Doing it for benefit of user, not to collect and sell their data. 
