@@ -10,3 +10,13 @@
 ## Overview of Project
 
 ## Topic Requirements
+
+## Brainstorm
+
+- Track sentiment anaysis from online presence
+- Spotify, reddit, facebook, twitter, instagram, weather, ...
+- Track feelings over time and create analysis of interaction and presence
+- Use natural language model to determine sentiment
+- "Digital Mirror" (Definitely not related to Black Mirror...)
+- Encourages people to be more mindful of online presence and what they consume
+- 
