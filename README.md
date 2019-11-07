@@ -19,4 +19,4 @@
 - Use natural language model to determine sentiment
 - "Digital Mirror" (Definitely not related to Black Mirror...)
 - Encourages people to be more mindful of online presence and what they consume
-- 
+- Transparency: Doing it for benefit of user

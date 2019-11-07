@@ -1,0 +1,1 @@
+I'm Tyler, I have experience with C#, LINQ queries (similar to SQL queries), Java, JS, C/C++, Python, as well as material from this course. My webdev experience is mostly through this course as well as some tinkering I've done in the past with small projects.
