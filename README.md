@@ -2,12 +2,14 @@
 
 ## Team Names
 
-- [Tyler Charlantini](./Tyler_Charlantini.md)
-- [Matthew Oslan](./Matthew_Oslan.md)
-- [Robert Rossetti](./Robert_Rossetti.md)
-- [Sean Fellows](./Sean_Fellows.md)
+- [Tyler Charlantini](./team/Tyler_Charlantini.md)
+- [Matthew Oslan](./team/Matthew_Oslan.md)
+- [Robert Rossetti](./team/Robert_Rossetti.md)
+- [Sean Fellows](./team/Sean_Fellows.md)
 
 ## Overview of Project
+
+Our project will act as a "digital mirror" to examine and analyse a user's online presence through their interaction with various popular websites. We will use multiple APIs to disect the information a user produces and consumes. From this we will create a profile 
 
 ## Topic Requirements
 
