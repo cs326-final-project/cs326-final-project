@@ -1,0 +1,1 @@
+I'm Sean, I have experience with Java. Most web development knowledge I have is from this class, although I have some experience with MongoDB from a previous project as well.
