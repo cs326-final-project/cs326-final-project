@@ -24,7 +24,7 @@ app.get("/create", (req,res) => {
     //for testing let's create a user instance
     let testUser = new User({
         userName: "big",
-        password: "guy"
+        password: "man"
     });
     testUser.save((err,testUser)=> {
         res.send("user with name "+testUser.userName + " was saved with ID of " + testUser._id);
