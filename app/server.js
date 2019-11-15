@@ -1,16 +1,14 @@
 const express = require("express");
-const mongoose = require("mongoose");
-
-//url param indicates machine mongodb is running on /nameOfDatabase
-mongoose.connect(process.env.MONGO_URL || "mongodb://localhost/mirrordb");
-
+const bodyParser = require("body-parser");
+const jwt = require("jwt-simple");
 
 // https://learn.zybooks.com/zybook/UMASSCOMPSCI326RichardsAcademicYear2020/chapter/11/section/8
 //Schema defines the structure of documents within
 // a MongoDB collection
 const userSchema = new mongoose.Schema({
-    userName: { type:String, require: true},
-    password: {type: String, require: true}
+    userName: { type: String, require: true },
+    password: { type: String, require: true },
+    status: String
 });
 
 // a Model is a constructor compiled from a schema
@@ -18,16 +16,19 @@ const userSchema = new mongoose.Schema({
 // two params modelName: name of model's collection, and schema: previously defined schema
 const User = mongoose.model("User", userSchema);
 
-const app = express();
+module.exports = User;
 
-app.get("/create", (req,res) => {
+const app = express();
+const router = express.Router();
+
+app.get("/create", (req, res) => {
     //for testing let's create a user instance
     let testUser = new User({
         userName: "big",
         password: "man"
     });
-    testUser.save((err,testUser)=> {
-        res.send("user with name "+testUser.userName + " was saved with ID of " + testUser._id);
+    testUser.save((err, testUser) => {
+        res.send("user with name " + testUser.userName + " was saved with ID of " + testUser._id);
     });
 });
 
