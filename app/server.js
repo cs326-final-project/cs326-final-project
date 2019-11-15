@@ -31,6 +31,12 @@ app.get("/create", (req,res) => {
     });
 });
 
+app.get("/analyzeData", (req, res) => {
+    // TODO we need to get the user's Reddit username. Can this be obtained through the API by checking the owner of the auth code, or does a field need to be added to the website?
+    console.log(`Received a request to analyze a user's data using Reddit authorization code "${req.query.redditCode}"`);
+    res.status(200).send("We have analyzed your data and determined you don't shitpost on Reddit enough. Thank you, have a nice day.");
+});
+
 //serve static files from public dir
 app.use(express.static("public"));
 app.listen(3000);
