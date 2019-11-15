@@ -1,0 +1,15 @@
+version: "3.6"
+services:
+  webserver:
+    build:
+      context: ./
+    ports:
+      - 3000:3000
+    environment:
+      MONGO_URL: "mongodb://mongodb/mirrordb"
+  mongodb:
+    image: mongo:latest
+    volumes:
+      - mongoData:/data/db
+volumes:
+  mongoData:
