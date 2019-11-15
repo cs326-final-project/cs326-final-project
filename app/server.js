@@ -1,5 +1,6 @@
 const express = require("express");
 const mongoose = require("mongoose");
+const redditScraper = require("./scrapers/redditScraper");
 
 //url param indicates machine mongodb is running on /nameOfDatabase
 mongoose.connect(process.env.MONGO_URL || "mongodb://localhost/mirrordb");
@@ -31,9 +32,11 @@ app.get("/create", (req,res) => {
     });
 });
 
-app.get("/analyzeData", (req, res) => {
+app.get("/analyzeData", async (req, res) => {
     console.log(`Received a request to analyze a user's data using Reddit authorization code "${req.query.redditCode}"`);
-    res.status(200).send("We have analyzed your data and determined you don't shitpost on Reddit enough. Thank you, have a nice day.");
+    const scrapedData = await redditScraper.scrapeUser(req.query.redditCode);
+    // TODO add the user's data to the database, then analyze it and return the results.
+    res.status(200).send(scrapedData);
 });
 
 //serve static files from public dir

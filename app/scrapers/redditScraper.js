@@ -78,6 +78,9 @@ async function scrapeUser(authorizationCode) {
     }
     console.log("Scraped downvoted posts");
 
-    // TODO add the data to the database.
-    console.log(scrapedData);
+    return scrapedData;
 }
+
+module.exports = {
+    scrapeUser: scrapeUser
+};
