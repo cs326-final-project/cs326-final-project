@@ -2,7 +2,7 @@ const express = require("express");
 const mongoose = require("mongoose");
 
 //url param indicates machine mongodb is running on /nameOfDatabase
-mongoose.connect("mongodb://localhost/mirrordb");
+mongoose.connect(process.env.MONGO_URL || "mongodb://localhost/mirrordb");
 
 
 // https://learn.zybooks.com/zybook/UMASSCOMPSCI326RichardsAcademicYear2020/chapter/11/section/8
