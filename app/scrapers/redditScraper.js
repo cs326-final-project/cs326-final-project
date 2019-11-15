@@ -4,7 +4,7 @@ const CLIENT_ID = process.env.REDDIT_CLIENT_ID;
 const CLIENT_SECRET = process.env.REDDIT_CLIENT_SECRET;
 
 // TODO handle errors more gracefully.
-async function scrapeUser(userName, authorizationCode) {
+async function scrapeUser(authorizationCode) {
     const wrapper = await snoowrap.fromAuthCode({
         code: authorizationCode,
         userAgent: "Digital Mirror (by /u/Derpthemeus)",
@@ -14,7 +14,7 @@ async function scrapeUser(userName, authorizationCode) {
         redirectUri: "http://localhost:3000/connectAccounts.html",
     });
 
-    const user = wrapper.getUser(userName);
+    const user = wrapper.getMe();
     console.log("Got Reddit user");
 
     // TODO change this to use whatever format is used in MongoDB.
@@ -78,6 +78,9 @@ async function scrapeUser(userName, authorizationCode) {
     }
     console.log("Scraped downvoted posts");
 
-    // TODO add the data to the database.
-    console.log(scrapedData);
+    return scrapedData;
 }
+
+module.exports = {
+    scrapeUser: scrapeUser
+};
