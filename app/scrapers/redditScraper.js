@@ -11,7 +11,7 @@ async function scrapeUser(userName, authorizationCode) {
         clientId: CLIENT_ID,
         clientSecret: CLIENT_SECRET,
         // TODO set this (it must mach the URL provided for the app on the Reddit developer portal)
-        redirectUri: "http://192.168.99.100:3000/redditOAuthCallback",
+        redirectUri: "http://localhost:3000/connectAccounts.html",
     });
 
     const user = wrapper.getUser(userName);
