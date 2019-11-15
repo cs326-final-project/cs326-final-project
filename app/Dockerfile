@@ -7,7 +7,8 @@ COPY package.json ./
 COPY package-lock.json ./
 RUN npm install
 
-COPY public/ ./
+COPY public/ ./public/
+COPY scrapers/ ./
 COPY server.js ./
 
 EXPOSE 3000
