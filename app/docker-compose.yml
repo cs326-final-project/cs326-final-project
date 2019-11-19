@@ -7,6 +7,9 @@ services:
       - 3000:3000
     environment:
       MONGO_URL: "mongodb://mongodb/mirrordb"
+    env_file:
+      - public.env
+      - private.env
   mongodb:
     image: mongo:latest
     volumes:
