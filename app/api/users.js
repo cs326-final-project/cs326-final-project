@@ -4,12 +4,13 @@ const jwt = require("jwt-simple");
 const User = require("../models/user");
 const router = require("express").Router();
 const bcrypt = require("bcrypt-node.js");
+const saltRounds = 10;
 
 const secret = "secret";
 
 router.post("/user", (req, res) => {
 
-    bcrypt.hash("openplease", null, null, (err, hash) => {
+    bcrypt.hash("openplease", saltRounds, (err, hash) => {
         const newUser = new User({
             username: req.body.username,
             password: req.body.password,
@@ -51,7 +52,7 @@ router.get("/status", (req, res) => {
 
     const token = req.headers["x-auth"];
     try {
-        const decoded = jwt.decode(tokent, secret);
+        const decoded = jwt.decode(token, secret);
 
         User.find({}, "username status", (err, users) => {
             res.json(users);
