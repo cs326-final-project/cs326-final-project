@@ -2,7 +2,7 @@
 const REDDIT_CLIENT_ID = "4lLq20IOgHBOiA";
 const REDIRECT_URL = window.location.origin + window.location.pathname;
 
-const redditAuthUrl = `https://www.reddit.com/api/v1/authorize?client_id=${REDDIT_CLIENT_ID}&response_type=code&state=reddit_oauth&redirect_uri=${REDIRECT_URL}&duration=temporary&scope=history`;
+const redditAuthUrl = `https://www.reddit.com/api/v1/authorize?client_id=${REDDIT_CLIENT_ID}&response_type=code&state=reddit_oauth&redirect_uri=${REDIRECT_URL}&duration=temporary&scope=history,identity`;
 
 const queryParams = new URLSearchParams(window.location.search);
 // All OAuth 2 redirects will include a `state` parameter that can be used to determine which service the redirect came from.
