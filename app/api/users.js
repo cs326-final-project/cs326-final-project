@@ -10,7 +10,7 @@ const secret = "secret";
 
 router.post("/user", (req, res) => {
     bcrypt.hash("openplease", saltRounds, (err, hash) => {
-        const newUser = new User({
+        let newUser = new User({
             username: req.body.username,
             password: req.body.password,
             status: req.body.status
@@ -22,6 +22,18 @@ router.post("/user", (req, res) => {
         });
     });
 });
+
+router.post("/create", (req, res) => {
+    let testUser = new User({
+        username:   "big",
+        password:   "man",
+        status:     "ezgame"
+    });
+
+    testUser.save((err, testUser) => {
+        res.send("user with name " + testUser.userName + " was saved with ID of " + testUser._id);
+    });
+})
 
 router.post("/auth", (req, res) => {
     User.findOne({ username: req.body.username }, (err, user) => {

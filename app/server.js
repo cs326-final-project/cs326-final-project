@@ -33,19 +33,6 @@ app.set("view engine", "handlebars");
 app.set("views", viewsPath);
 handlebars.registerPartial("layout", fs.readFileSync(viewsPath + "/layout.handlebars", "utf8"));
 
-
-app.get("/create", (req, res) => {
-    //for testing let's create a user instance
-    let testUser = new User({
-        userName: "big",
-        password: "man",
-        status: "ezgame"
-    });
-    testUser.save((err, testUser) => {
-        res.send("user with name " + testUser.userName + " was saved with ID of " + testUser._id);
-    });
-});
-
 app.get("/analyzeData", async(req, res) => {
     console.log(`Received a request to analyze a user's data using Reddit authorization code "${req.query.redditCode}"`);
     const scrapedData = await redditScraper.scrapeUser(req.query.redditCode);
