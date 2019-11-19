@@ -1,9 +1,8 @@
-<html>
-  <title>Digital Mirror - Link Accounts</title>
-  <head>
+{{#extend "layout"}}
+  {{#content "head"}}
     <script src="connectAccounts.js"></script>
-  </head>
-  <body>
+  {{/content}}
+  {{#content "body"}}
     <h1>Connect Reddit account</h1>
     <div>
       <!-- The href attribute will be set via JavaScript. -->
@@ -13,5 +12,5 @@
       <!-- The href attribute will be set via JavaScript. -->
       <a id="analyzeLink">Analyze my data</a>
     </div>
-  </body>
-</html>
+  {{/content}}
+{{/extend}}
