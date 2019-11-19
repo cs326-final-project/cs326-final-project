@@ -4,15 +4,15 @@ const jwt = require("jwt-simple");
 const User = require("../models/user");
 const router = require("express").Router();
 const bcrypt = require("bcrypt-nodejs");
-const saltRounds = 10;
+const saltRounds = "10";
 
 const secret = "secret";
 
 router.post("/user", (req, res) => {
-    bcrypt.hash("openplease", saltRounds, (err, hash) => {
+    bcrypt.hash(req.body.password, saltRounds, null, (err, hash) => {
         let newUser = new User({
             username: req.body.username,
-            password: req.body.password,
+            password: hash,
             status: req.body.status
         });
 
@@ -27,7 +27,7 @@ router.post("/create", (req, res) => {
     let testUser = new User({
         username:   "big",
         password:   "man",
-        status:     "ezgame"
+        status:     200
     });
 
     testUser.save((err, testUser) => {
