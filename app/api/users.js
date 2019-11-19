@@ -6,8 +6,6 @@ const router = require("express").Router();
 const bcrypt = require("bcrypt-nodejs");
 const saltRounds = "10";
 
-const secret = "secret";
-
 router.post("/user", (req, res) => {
     bcrypt.hash(req.body.password, saltRounds, null, (err, hash) => {
         let newUser = new User({
@@ -17,21 +15,26 @@ router.post("/user", (req, res) => {
         });
 
         newUser.save((err) => {
-            if (err) return next(err);
-            res.sendStatus(201); // New user created
+            if (err) {
+                res.status(500).json({error: "Error creating user"});
+            } else {
+                res.sendStatus(201); // New user created
+            }
         });
     });
 });
 
 router.post("/create", (req, res) => {
-    let testUser = new User({
-        username:   "big",
-        password:   "man",
-        status:     200
-    });
-
-    testUser.save((err, testUser) => {
-        res.send("user with name " + testUser.userName + " was saved with ID of " + testUser._id);
+    bcrypt.hash("man", saltRounds, null, (err, hash) => {
+        let testUser = new User({
+            username:   "big",
+            password:   hash,
+            status:     req.body.status
+        });
+    
+        testUser.save((err, testUser) => {
+            res.send("user with name " + testUser.username + " was saved with ID of " + testUser._id);
+        });
     });
 })
 
@@ -44,9 +47,9 @@ router.post("/auth", (req, res) => {
         } else {
             bcrypt.compare(req.body.password, user.password, (err, valid) => {
                 if (err) {
-                    res.status(400).json({ error: err });
+                    res.status(400).json({ error: "Failed to authenticate." });
                 } else if (valid) {
-                    const token = jwt.encode({ username: user.username }, secret);
+                    const token = jwt.encode({ username: user.username }, SECRET);
                     res.json({ token: token });
                 } else {
                     res.status(401).json({ error: "Wrong password" });
@@ -63,7 +66,7 @@ router.get("/status", (req, res) => {
 
     const token = req.headers["x-auth"];
     try {
-        const decoded = jwt.decode(token, secret);
+        const decoded = jwt.decode(token, SECRET);
 
         User.find({}, "username status", (err, users) => {
             res.json(users);
