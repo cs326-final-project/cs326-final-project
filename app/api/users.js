@@ -47,7 +47,7 @@ router.post("/auth", (req, res) => {
                     res.status(400).json({ error: err });
                 } else if (valid) {
                     const token = jwt.encode({ username: user.username }, secret);
-                    res.json({ token: tokent });
+                    res.json({ token: token });
                 } else {
                     res.status(401).json({ error: "Wrong password" });
                 }
