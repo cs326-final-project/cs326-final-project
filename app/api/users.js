@@ -4,36 +4,40 @@ const jwt = require("jwt-simple");
 const User = require("../models/user");
 const router = require("express").Router();
 const bcrypt = require("bcrypt-nodejs");
-const saltRounds = "10";
+const saltRounds = 10;
 
 router.post("/user", (req, res) => {
-    bcrypt.hash(req.body.password, saltRounds, null, (err, hash) => {
-        let newUser = new User({
-            username: req.body.username,
-            password: hash,
-            status: req.body.status
-        });
-
-        newUser.save((err) => {
-            if (err) {
-                res.status(500).json({error: "Error creating user"});
-            } else {
-                res.sendStatus(201); // New user created
-            }
+    bcrypt.genSalt(saltRounds, (err, salt) => {
+        bcrypt.hash(req.body.password, salt, (err, hash) => {
+            let newUser = new User({
+                username: req.body.username,
+                password: hash,
+                status: req.body.status
+            });
+    
+            newUser.save((err) => {
+                if (err) {
+                    res.status(500).json({error: "Error creating user"});
+                } else {
+                    res.sendStatus(201); // New user created
+                }
+            });
         });
     });
 });
 
 router.post("/create", (req, res) => {
-    bcrypt.hash("man", saltRounds, null, (err, hash) => {
-        let testUser = new User({
-            username:   "big",
-            password:   hash,
-            status:     req.body.status
-        });
-    
-        testUser.save((err, testUser) => {
-            res.send("user with name " + testUser.username + " was saved with ID of " + testUser._id);
+    bcrypt.genSalt(saltRounds, (err, salt) => {
+        bcrypt.hash("man", salt, null, (err, hash) => {
+            let testUser = new User({
+                username:   "big",
+                password:   hash,
+                status:     req.body.status
+            });
+        
+            testUser.save((err, testUser) => {
+                res.send("user with name " + testUser.username + " was saved with ID of " + testUser._id);
+            });
         });
     });
 })
