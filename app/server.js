@@ -2,6 +2,7 @@ const fs = require("fs");
 const express = require("express");
 const bodyParser = require("body-parser");
 const User = require("./models/user");
+const mongoose = require("mongoose");
 const handlebars = require("handlebars");
 const expressHandlebars = require("express-handlebars");
 const layouts = require("handlebars-layouts");
@@ -13,9 +14,6 @@ mongoose.connect(process.env.MONGO_URL || "mongodb://localhost/mirrordb");
 // a Model is a constructor compiled from a schema
 // instance of model represent MongoDB documnets that can be saved or written
 // two params modelName: name of model's collection, and schema: previously defined schema
-const User = mongoose.model("User", userSchema);
-
-module.exports = User;
 
 const app = express();
 const router = express.Router();

@@ -3,13 +3,12 @@
 const jwt = require("jwt-simple");
 const User = require("../models/user");
 const router = require("express").Router();
-const bcrypt = require("bcrypt-node.js");
+const bcrypt = require("bcrypt-nodejs");
 const saltRounds = 10;
 
 const secret = "secret";
 
 router.post("/user", (req, res) => {
-
     bcrypt.hash("openplease", saltRounds, (err, hash) => {
         const newUser = new User({
             username: req.body.username,
