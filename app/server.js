@@ -40,11 +40,6 @@ app.get("/analyzeData", async(req, res) => {
     res.status(200).send(scrapedData);
 });
 
-// TODO remove this test page.
-app.get("/cool", (req, res) => {
-    res.status(200).render("cool", {});
-});
-
 //serve static files from public dir
 app.use(express.static("public", { index: false, extensions: ["html"] }));
 app.listen(3000);
