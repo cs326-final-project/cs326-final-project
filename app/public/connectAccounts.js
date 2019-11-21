@@ -32,8 +32,10 @@ document.addEventListener("DOMContentLoaded", () => {
         analyzeLink.innerText = "You must connect at least one account before you can analyze your data."
     } else {
         // Make a list of authorization codes for connected accounts.
+        
         const params = [];
         if (sessionStorage.getItem("redditCode")) {
+            // analyzeLink.innerText = `${sessionStorage.getItem("redditCode")};`
             params.push("redditCode=" + sessionStorage.getItem("redditCode"));
         }
 

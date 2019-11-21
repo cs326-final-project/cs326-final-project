@@ -1,10 +1,16 @@
 const snoowrap = require("snoowrap");
+const dotenv = require("dotenv")
+dotenv.config({ path: __dirname + "/public.env" })
+dotenv.config({ path: __dirname + "/private.env" })
 
-const CLIENT_ID = process.env.REDDIT_CLIENT_ID;
-const CLIENT_SECRET = process.env.REDDIT_CLIENT_SECRET;
+// const CLIENT_ID = process.env.REDDIT_CLIENT_ID;
+// const CLIENT_SECRET = process.env.REDDIT_CLIENT_SECRET;
 
 // TODO handle errors more gracefully.
 async function scrapeUser(authorizationCode) {
+    console.log("here we are in reddit scraper");
+    let CLIENT_ID = process.env.REDDIT_CLIENT_ID;
+    let CLIENT_SECRET = process.env.REDDIT_CLIENT_SECRET;
     const wrapper = await snoowrap.fromAuthCode({
         code: authorizationCode,
         userAgent: "Digital Mirror (by /u/Derpthemeus)",

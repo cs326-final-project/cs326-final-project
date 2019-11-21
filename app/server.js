@@ -8,6 +8,10 @@ const expressHandlebars = require("express-handlebars");
 const layouts = require("handlebars-layouts");
 const redditScraper = require("./scrapers/redditScraper");
 
+const dotenv = require("dotenv");
+dotenv.config({ path: __dirname + "/public.env" });
+dotenv.config({ path: __dirname + "/private.env" });
+
 //url param indicates machine mongodb is running on /nameOfDatabase
 mongoose.connect(process.env.MONGO_URL || "mongodb://localhost/mirrordb");
 
@@ -34,9 +38,12 @@ app.set("views", viewsPath);
 handlebars.registerPartial("layout", fs.readFileSync(viewsPath + "/layout.handlebars", "utf8"));
 
 app.get("/analyzeData", async(req, res) => {
+    console.log(req.query);
+    console.log("\n\n\n\n");
     console.log(`Received a request to analyze a user's data using Reddit authorization code "${req.query.redditCode}"`);
     const scrapedData = await redditScraper.scrapeUser(req.query.redditCode);
     // TODO add the user's data to the database, then analyze it and return the results.
+    console.log(scrapedData.upvoted)
     res.status(200).send(scrapedData);
 });
 
