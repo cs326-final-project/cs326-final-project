@@ -40,10 +40,6 @@ app.get("/analyzeData", async(req, res) => {
     res.status(200).send(scrapedData);
 });
 
-app.get("/", (req, res) => {
-    res.status(200).render("index", {});
-});
-
 // TODO remove this test page.
 app.get("/cool", (req, res) => {
     res.status(200).render("cool", {});
