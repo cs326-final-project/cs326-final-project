@@ -27,7 +27,6 @@ router.post("/user", (req, res) => {
 });
 
 router.post("/create", (req, res) => {
-    console.log("test");
     bcrypt.genSalt(saltRounds, (err, salt) => {
         bcrypt.hash("man", salt, null, (err, hash) => {
             let testUser = new User({
