@@ -8,16 +8,16 @@ const saltRounds = 10;
 
 router.post("/user", (req, res) => {
     bcrypt.genSalt(saltRounds, (err, salt) => {
-        bcrypt.hash(req.body.password, salt, (err, hash) => {
+        bcrypt.hash(req.body.password, salt, null, (err, hash) => {
             let newUser = new User({
                 username: req.body.username,
                 password: hash,
                 status: req.body.status
             });
-    
+
             newUser.save((err) => {
                 if (err) {
-                    res.status(500).json({error: "Error creating user"});
+                    res.status(500).json({ error: "Error creating user" });
                 } else {
                     res.sendStatus(201); // New user created
                 }
@@ -27,14 +27,15 @@ router.post("/user", (req, res) => {
 });
 
 router.post("/create", (req, res) => {
+    console.log("test");
     bcrypt.genSalt(saltRounds, (err, salt) => {
         bcrypt.hash("man", salt, null, (err, hash) => {
             let testUser = new User({
-                username:   "big",
-                password:   hash,
-                status:     req.body.status
+                username: "big",
+                password: hash,
+                status: req.body.status
             });
-        
+
             testUser.save((err, testUser) => {
                 res.send("user with name " + testUser.username + " was saved with ID of " + testUser._id);
             });
