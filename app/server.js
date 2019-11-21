@@ -49,10 +49,6 @@ app.get("/cool", (req, res) => {
     res.status(200).render("cool", {});
 });
 
-app.get("/connectAccounts", (req, res) => {
-    res.status(200).render("connectAccounts", {});
-});
-
 //serve static files from public dir
-app.use(express.static("public"));
+app.use(express.static("public", { index: false, extensions: ["html"] }));
 app.listen(3000);
