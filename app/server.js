@@ -49,7 +49,7 @@ app.get("/analyzeData", async(req, res) => {
     let redditDataId;
     // save reddit data
     try {
-        db.RedditData.save(scrapedData, function(error){
+        RedditData.save(scrapedData, function(error){
             if (error){
                 return;   
             } 
@@ -67,7 +67,7 @@ app.get("/analyzeData", async(req, res) => {
     // we will need to know the user's id in order to update with redditDataID
     if (redditDataId && req.query.userID) {
         // db.COLLECTION_NAME.update(SELECTION_CRITERIA, UPDATED_DATA)
-        db.User.update({_id: req.query.userID},
+        User.update({_id: req.query.userID},
             {$set:{'redditDataID':redditDataId}})
     }
     // update user redditID field
