@@ -2,11 +2,14 @@ const fs = require("fs");
 const express = require("express");
 const bodyParser = require("body-parser");
 const User = require("./models/user");
+const redditData = require("./models/redditData");
+
 const mongoose = require("mongoose");
 const handlebars = require("handlebars");
 const expressHandlebars = require("express-handlebars");
 const layouts = require("handlebars-layouts");
 const redditScraper = require("./scrapers/redditScraper");
+const db = require("mongoose");
 
 const dotenv = require("dotenv");
 dotenv.config({ path: __dirname + "/public.env" });
@@ -25,6 +28,8 @@ router.use(bodyParser.urlencoded({
     extended: false
 }));
 router.use("/api", require("./api/users"));
+router.use("/api", require("./api/redditdata"));
+
 app.use(router);
 
 // Setup Handlebars and addons.
@@ -38,12 +43,35 @@ app.set("views", viewsPath);
 handlebars.registerPartial("layout", fs.readFileSync(viewsPath + "/layout.handlebars", "utf8"));
 
 app.get("/analyzeData", async(req, res) => {
-    console.log(req.query);
-    console.log("\n\n\n\n");
-    console.log(`Received a request to analyze a user's data using Reddit authorization code "${req.query.redditCode}"`);
+    console.log(req.query); // i want to get the user id from this
+    // console.log(`Received a request to analyze a user's data using Reddit authorization code "${req.query.redditCode}"`);
     const scrapedData = await redditScraper.scrapeUser(req.query.redditCode);
+    let redditDataId;
+    // save reddit data
+    try {
+        db.RedditData.save(scrapedData, function(error){
+            if (error){
+                return;   
+            } 
+            // get id of saved data to link to user
+            else{
+                redditDataID = scrapedData._id;
+            }
+        });
+    }
+    catch (error){
+        console.log(error);
+        return;
+    }
+    // if we saved the scrapedData and got the document id
+    // we will need to know the user's id in order to update with redditDataID
+    if (redditDataId && req.query.userID) {
+        // db.COLLECTION_NAME.update(SELECTION_CRITERIA, UPDATED_DATA)
+        db.User.update({_id: req.query.userID},
+            {$set:{'redditDataID':redditDataId}})
+    }
+    // update user redditID field
     // TODO add the user's data to the database, then analyze it and return the results.
-    console.log(scrapedData.upvoted)
     res.status(200).send(scrapedData);
 });
 

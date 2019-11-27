@@ -8,7 +8,6 @@ dotenv.config({ path: __dirname + "/private.env" })
 
 // TODO handle errors more gracefully.
 async function scrapeUser(authorizationCode) {
-    console.log("here we are in reddit scraper");
     let CLIENT_ID = process.env.REDDIT_CLIENT_ID;
     let CLIENT_SECRET = process.env.REDDIT_CLIENT_SECRET;
     const wrapper = await snoowrap.fromAuthCode({
