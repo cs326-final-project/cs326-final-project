@@ -1,14 +1,16 @@
 #home {
     float:center;
     color:white;
-    text-align: center;
-    width:50%;
     position:relative;
+    width:50%;
     left:25%;
 }
 body {
     text-shadow: 0 0 5px #C8C8C8;
+}
+body a{
     
+    text-shadow: 0 0 5px rgba(200, 200, 200, 0.25);
 }
 body::after {
     background: repeating-linear-gradient(
@@ -19,7 +21,10 @@ body::after {
       transparent 2px
     );
 }
-
+a:hover{
+    background-color: white;
+    text-decoration: none;
+}
 
 #background {
     background-color: black;
@@ -48,7 +53,7 @@ h1 {
 
 .typewriter h1{
     overflow: hidden; /* Ensures the content is not revealed until the animation */
-    border-right: .15em solid green; /* The typwriter cursor */
+    border-right: .15em solid white; /* The typwriter cursor */
     white-space: nowrap; /* Keeps the content on a single line */
     margin: 0 auto; /* Gives that scrolling effect as the typing happens */
     letter-spacing: .15em; /* Adjust as needed */
@@ -56,15 +61,16 @@ h1 {
       typing 3.5s steps(40, end),
       blink-caret 1s step-end infinite;
   }
-  .typewriter p{
+  .typewriter p:nth-child(2){
     overflow: hidden; /* Ensures the content is not revealed until the animation */
-    border-right: .15em solid green; /* The typwriter cursor */
+    border-right: .15em solid white; /* The typwriter cursor */
     white-space: nowrap; /* Keeps the content on a single line */
+    padding-top:30x;
     margin: 0 auto; /* Gives that scrolling effect as the typing happens */
     letter-spacing: .15em; /* Adjust as needed */
     animation: 
       typing 3.5s steps(40, end),
-      rise 2s steps(40, end);
+      blink-caret 1s step-end infinite;
   }
   
   /* The typing effect */
@@ -77,16 +83,4 @@ h1 {
   @keyframes blink-caret {
     from, to { border-color: transparent }
     50% { border-color: white; }
-  }
-
-  @keyframes rise {
-    from {
-        visibility: hidden;
-
-    }
-    to {
-        visibility: visible;
-        transform: translateY(-50px);      
-    }
-
   }
