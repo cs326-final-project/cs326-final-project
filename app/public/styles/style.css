@@ -1,0 +1,92 @@
+#home {
+    float:center;
+    color:white;
+    text-align: center;
+    width:50%;
+    position:relative;
+    left:25%;
+}
+body {
+    text-shadow: 0 0 5px #C8C8C8;
+    
+}
+body::after {
+    background: repeating-linear-gradient(
+      0deg,
+      rgba(black, 0.15),
+      rgba(black, 0.15) 1px,
+      transparent 1px,
+      transparent 2px
+    );
+}
+
+
+#background {
+    background-color: black;
+    background-image: radial-gradient(
+    rgba(0, 100, 0, 0.5), black 120%);
+    min-height: 100%;
+    min-width: 100%;
+    position: fixed; 
+    top: 0; 
+    left: 0; 
+    width: 100%; 
+    height: 100%;
+}
+
+p {
+    color:white;
+    font-family: monospace;
+    font-size: 2em;
+}
+h1 {
+    color:white;
+    font-family: monospace;
+    font-size: 3em
+}
+
+
+.typewriter h1{
+    overflow: hidden; /* Ensures the content is not revealed until the animation */
+    border-right: .15em solid green; /* The typwriter cursor */
+    white-space: nowrap; /* Keeps the content on a single line */
+    margin: 0 auto; /* Gives that scrolling effect as the typing happens */
+    letter-spacing: .15em; /* Adjust as needed */
+    animation: 
+      typing 3.5s steps(40, end),
+      blink-caret 1s step-end infinite;
+  }
+  .typewriter p{
+    overflow: hidden; /* Ensures the content is not revealed until the animation */
+    border-right: .15em solid green; /* The typwriter cursor */
+    white-space: nowrap; /* Keeps the content on a single line */
+    margin: 0 auto; /* Gives that scrolling effect as the typing happens */
+    letter-spacing: .15em; /* Adjust as needed */
+    animation: 
+      typing 3.5s steps(40, end),
+      rise 2s steps(40, end);
+  }
+  
+  /* The typing effect */
+  @keyframes typing {
+    from { width: 0 }
+    to { width: 100% }
+  }
+  
+  /* The typewriter cursor effect */
+  @keyframes blink-caret {
+    from, to { border-color: transparent }
+    50% { border-color: white; }
+  }
+
+  @keyframes rise {
+    from {
+        visibility: hidden;
+
+    }
+    to {
+        visibility: visible;
+        transform: translateY(-50px);      
+    }
+
+  }
