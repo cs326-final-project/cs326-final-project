@@ -49,11 +49,12 @@ document.addEventListener("DOMContentLoaded", () => {
         service.authorizationCode = sessionStorage.getItem(service.codeId);
     }
 
-    // Compile the template and render it.
-    const template = document.getElementById("content-template").innerHTML;
-    document.getElementById("content").innerHTML = Handlebars.compile(template)({
-        services: services,
-        accountConnected: services.reduce((found, service) => !!service.authorizationCode || found, false)
+    $.get("./connectAccounts.hbs", (template) => {
+        // Compile the template and render it.
+        document.getElementById("content").innerHTML = Handlebars.compile(template)({
+            services: services,
+            accountConnected: services.reduce((found, service) => !!service.authorizationCode || found, false)
+        });
     });
 });
 
