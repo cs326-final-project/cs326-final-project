@@ -20,7 +20,7 @@ router.use("/api", require("./api/users"));
 app.use(router);
 
 app.get("/analyzeData", async(req, res) => {
-    console.log(`Received a request to analyze a user's data using Reddit authorization code "${req.query.redditCode}"`);
+    console.log(`Received a request to analyze a user's data with the query values ${Object.entries(req.query).map((pair) => pair.join(": ")).join(", ")}`);
     const scrapedData = await redditScraper.scrapeUser(req.query.redditCode);
     // TODO add the user's data to the database, then analyze it and return the results.
     res.status(200).send(scrapedData);
