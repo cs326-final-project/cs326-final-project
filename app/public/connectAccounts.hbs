@@ -1,0 +1,25 @@
+{{#each services}}
+  <div>
+    <h1>Connect your {{this.name}} account</h1>
+    <img width="60px" src="{{this.iconUrl}}">
+    {{#if this.authorizationCode}}
+      <button class="btn btn-outline-danger" onclick="sessionStorage.removeItem('{{this.codeId}}'); window.location.href = REDIRECT_URL">
+        Click here to disconnect your account
+      </button>
+    {{else}}
+      <button class="btn btn-success" onclick="window.location.href = '{{this.oauthUrl}}'">
+        Click here to connect your account
+      </button>
+    {{/if}}
+  </div>
+{{/each}}
+
+{{#if accountConnected}}
+  <button class="btn btn-info" onclick="analyzeData()">
+    Analyze my data!
+  </button>
+{{else}}
+  <button disabled class="btn btn-outline-info">
+    You must connect at least one account before you can analyze your data.
+  </button>
+{{/if}}
