@@ -1,7 +1,9 @@
 const snoowrap = require("snoowrap");
-const dotenv = require("dotenv")
-dotenv.config({ path: __dirname + "/public.env" })
-dotenv.config({ path: __dirname + "/private.env" })
+const dotenv = require("dotenv");
+const fs = require("fs");
+
+dotenv.config({ path: __dirname + "/../public.env" });
+dotenv.config({ path: __dirname + "/../private.env" });
 
 const CLIENT_ID = process.env.REDDIT_CLIENT_ID;
 const CLIENT_SECRET = process.env.REDDIT_CLIENT_SECRET;
@@ -9,8 +11,12 @@ const REDIRECT_URL = process.env.REDDIT_REDIRECT_URL;
 
 // TODO handle errors more gracefully.
 async function scrapeUser(authorizationCode) {
-    let CLIENT_ID = process.env.REDDIT_CLIENT_ID;
-    let CLIENT_SECRET = process.env.REDDIT_CLIENT_SECRET;
+    console.log("------------------")
+    console.log(CLIENT_ID);
+    console.log(CLIENT_SECRET);
+    console.log(REDIRECT_URL);
+    console.log("------------------")
+
     const wrapper = await snoowrap.fromAuthCode({
         code: authorizationCode,
         userAgent: "Digital Mirror (by /u/Derpthemeus)",

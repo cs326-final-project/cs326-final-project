@@ -35,10 +35,13 @@ app.get("/analyzeData", async(req, res) => {
         scrapedData.facebook = await facebookScraper.scrapeUser(req.query.facebookCode);
     }
 
-    // TODO add the user's data to the database, then analyze it and return the results.
-    res.status(200).send(scrapedData);
+    // get logged in user id
+    
+    // create appropriate documents for reddit / facebook data
+    // send success status?
+    // res.status(200).send(scrapedData);
 });
 
 //serve static files from public dir
-app.use(express.static("public", { index: false, extensions: ["html","handlebars","hbs"] }));
+app.use(express.static("public", { index: false, extensions: ["html"] }));
 app.listen(3000);
