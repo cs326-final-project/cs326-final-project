@@ -14,7 +14,7 @@ router.post("/redditData", (req, res) => {
         if (err){
             res.status(500).json({ error: "Error creating user" });
         } else{
-            res.sendStatus(201); // New user created
+            res.sendStatus(201); // New document created successfully
         }
     })
 });
