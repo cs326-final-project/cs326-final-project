@@ -3,8 +3,9 @@ const dotenv = require("dotenv")
 dotenv.config({ path: __dirname + "/public.env" })
 dotenv.config({ path: __dirname + "/private.env" })
 
-// const CLIENT_ID = process.env.REDDIT_CLIENT_ID;
-// const CLIENT_SECRET = process.env.REDDIT_CLIENT_SECRET;
+const CLIENT_ID = process.env.REDDIT_CLIENT_ID;
+const CLIENT_SECRET = process.env.REDDIT_CLIENT_SECRET;
+const REDIRECT_URL = process.env.REDDIT_REDIRECT_URL;
 
 // TODO handle errors more gracefully.
 async function scrapeUser(authorizationCode) {
@@ -15,8 +16,7 @@ async function scrapeUser(authorizationCode) {
         userAgent: "Digital Mirror (by /u/Derpthemeus)",
         clientId: CLIENT_ID,
         clientSecret: CLIENT_SECRET,
-        // TODO set this (it must mach the URL provided for the app on the Reddit developer portal)
-        redirectUri: "http://localhost:3000/connectAccounts",
+        redirectUri: REDIRECT_URL,
     });
 
     const user = wrapper.getMe();
