@@ -12,6 +12,7 @@ router.post("/user", (req, res) => {
             let newUser = new User({
                 username: req.body.username,
                 password: hash,
+                email: email,
                 status: req.body.status
             });
 
@@ -27,12 +28,12 @@ router.post("/user", (req, res) => {
 });
 
 router.post("/create", (req, res) => {
-    console.log("test");
     bcrypt.genSalt(saltRounds, (err, salt) => {
         bcrypt.hash("man", salt, null, (err, hash) => {
             let testUser = new User({
                 username: "big",
                 password: hash,
+                email: "derpthemeus@gmail.com",
                 status: req.body.status
             });
 
@@ -82,3 +83,19 @@ router.get("/status", (req, res) => {
 });
 
 module.exports = router;
+
+$(() => {
+    let $password = $(".form-control[type='password']");
+    let $passwordAlert = $(".password-alert");
+    let $requirements = $(".requirements");
+    let $leng = $(".leng");
+    let $bigLetter = $(".big-letter");
+    let $num = $(".num");
+    let $specialChar = $(".special-char");
+    let specialChars = "!@#$%^&*()-_=+[{]}\\|;:'\",<.>/?`~";
+    let numbers = "0123456789";
+
+    $password.on("focus", () => {
+        $passwordAlert.show();
+    });
+});
