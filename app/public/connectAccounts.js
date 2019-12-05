@@ -1,8 +1,11 @@
 // TODO set this.
 const REDDIT_CLIENT_ID = "4lLq20IOgHBOiA";
+// TODO set this.
+const FACEBOOK_APP_ID = "513242592617015";
 const REDIRECT_URL = window.location.origin + window.location.pathname;
 
 const REDDIT_CODE_ID = "redditCode";
+const FACEBOOK_CODE_ID = "facebookCode";
 const services = [
     {
         // A human-readable name for this service that will be shown to users.
@@ -16,11 +19,10 @@ const services = [
         iconUrl: "https://images-eu.ssl-images-amazon.com/images/I/418PuxYS63L.png"
     },
     {
-        name: "Spotify",
-        // TODO set this
-        oauthUrl: "https://example.com",
-        codeId: "spotifyCode",
-        iconUrl: "https://developer.spotify.com/assets/branding-guidelines/icon1@2x.png"
+        name: "Facebook",
+        oauthUrl: `https://www.facebook.com/v5.0/dialog/oauth?client_id=${FACEBOOK_APP_ID}&redirect_uri=${REDIRECT_URL}&state=${FACEBOOK_CODE_ID}&scope=user_posts`,
+        codeId: FACEBOOK_CODE_ID,
+        iconUrl: "https://en.facebookbrand.com/wp-content/uploads/2019/04/f_logo_RGB-Hex-Blue_512.png"
     }
 ];
 

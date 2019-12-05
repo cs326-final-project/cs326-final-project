@@ -3,6 +3,7 @@ const bodyParser = require("body-parser");
 const User = require("./models/user");
 const mongoose = require("mongoose");
 const redditScraper = require("./scrapers/redditScraper");
+const facebookScraper = require("./scrapers/facebookScraper");
 
 //url param indicates machine mongodb is running on /nameOfDatabase
 mongoose.connect(process.env.MONGO_URL || "mongodb://localhost/mirrordb");
@@ -20,8 +21,16 @@ router.use("/api", require("./api/users"));
 app.use(router);
 
 app.get("/analyzeData", async(req, res) => {
-    console.log(`Received a request to analyze a user's data using Reddit authorization code "${req.query.redditCode}"`);
-    const scrapedData = await redditScraper.scrapeUser(req.query.redditCode);
+    console.log(`Received a request to analyze a user's data with the query values ${Object.entries(req.query).map((pair) => pair.join(": ")).join(", ")}`);
+
+    const scrapedData = {};
+    if (req.query.redditCode) {
+        scrapedData.reddit = await redditScraper.scrapeUser(req.query.redditCode);
+    }
+    if (req.query.facebookCode) {
+        scrapedData.facebook = await facebookScraper.scrapeUser(req.query.facebookCode);
+    }
+
     // TODO add the user's data to the database, then analyze it and return the results.
     res.status(200).send(scrapedData);
 });
