@@ -84,18 +84,18 @@ router.get("/status", (req, res) => {
 
 module.exports = router;
 
-$(() => {
-    let $password = $(".form-control[type='password']");
-    let $passwordAlert = $(".password-alert");
-    let $requirements = $(".requirements");
-    let $leng = $(".leng");
-    let $bigLetter = $(".big-letter");
-    let $num = $(".num");
-    let $specialChar = $(".special-char");
-    let specialChars = "!@#$%^&*()-_=+[{]}\\|;:'\",<.>/?`~";
-    let numbers = "0123456789";
+// $(function() {
+//     let $password = $(".form-control[type='password']");
+//     let $passwordAlert = $(".password-alert");
+//     let $requirements = $(".requirements");
+//     let $leng = $(".leng");
+//     let $bigLetter = $(".big-letter");
+//     let $num = $(".num");
+//     let $specialChar = $(".special-char");
+//     let specialChars = "!@#$%^&*()-_=+[{]}\\|;:'\",<.>/?`~";
+//     let numbers = "0123456789";
 
-    $password.on("focus", () => {
-        $passwordAlert.show();
-    });
-});
+//     $password.on("focus", () => {
+//         $passwordAlert.show();
+//     });
+// });
