@@ -49,6 +49,7 @@ app.get("/analyzeData", async(req, res) => {
         console.log(error);
     }
     // create document for facebook data
+    console.log(scrapedData);
     let scrapedFacebookData = scrapedData.facebook;
     scrapedFacebookData.userID = userID;
     let facebook_document = new FacebookDataModel(scrapedFacebookData);
