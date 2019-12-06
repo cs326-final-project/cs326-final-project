@@ -70,5 +70,5 @@ function analyzeData() {
         }
     }
 
-    window.location.href = `/analyzeData?${params.join("&")}`;
+    window.location.href = `/api/scrapeData?${params.join("&")}`;
 }
