@@ -12,7 +12,7 @@ router.post("/user", (req, res) => {
             let newUser = new User({
                 username: req.body.username,
                 password: hash,
-                email: email,
+                email: req.body.email,
                 status: req.body.status
             });
 
