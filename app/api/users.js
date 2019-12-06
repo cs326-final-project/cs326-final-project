@@ -13,36 +13,18 @@ router.post("/user", (req, res) => {
                 username: req.body.username,
                 password: hash,
                 email: req.body.email,
-                status: req.body.status
             });
 
             newUser.save((err) => {
                 if (err) {
                     res.status(500).json({ error: "Error creating user" });
                 } else {
-                    res.sendStatus(201); // New user created
+                    res.redirect("/index"); // New user created
                 }
             });
         });
     });
 });
-
-router.post("/create", (req, res) => {
-    bcrypt.genSalt(saltRounds, (err, salt) => {
-        bcrypt.hash("man", salt, null, (err, hash) => {
-            let testUser = new User({
-                username: "big",
-                password: hash,
-                email: "derpthemeus@gmail.com",
-                status: req.body.status
-            });
-
-            testUser.save((err, testUser) => {
-                res.send("user with name " + testUser.username + " was saved with ID of " + testUser._id);
-            });
-        });
-    });
-})
 
 router.post("/auth", (req, res) => {
     User.findOne({ username: req.body.username }, (err, user) => {

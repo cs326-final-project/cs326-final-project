@@ -24,18 +24,18 @@
 
         <div class="row pt-5">
             <div class="col text-center">
-                <form action="/user" method="post" oninput="confirmPassword.setCustomValidity(confirmPassword.value != password.value ? 'Passwords do not match.' : '')" oninput="password.setCustomValidity(password.value)">
+                <form action="/api/user" method="post" oninput="confirmPassword.setCustomValidity(confirmPassword.value != password.value ? 'Passwords do not match.' : '')" oninput="password.setCustomValidity(password.value)">
                     <div class="form-group p-2 pr-5 pl-5">
-                        <input type="text" class="form-control" id="name" aria-describedby="nameHelp" placeholder="Username" required>
+                        <input type="text" class="form-control" name="username" id="username" aria-describedby="nameHelp" placeholder="Username" required>
                         <div class="help-block with-errors"></div>
                     </div>
                     <div class="form-group p-2 pr-5 pl-5">
-                        <input type="email" class="form-control" id="email" aria-describedby="emailHelp" placeholder="name@example.com" required>
+                        <input type="email" class="form-control" name="email" id="email" aria-describedby="emailHelp" placeholder="name@example.com" required>
                         <div class="help-block with-errors"></div>
                     </div>
                     <div class="form-group p-2 pr-5 pl-5">
-                        <input type="password" pattern="^(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{8,20}$" title="Your password must be between 8 and 20 characters, contain at least 1 upper case letter, 1 lower case letter, and 1 number" class="form-control validate" id="password" placeholder="Password"
-                            required>
+                        <input type="password" name="password" pattern="^(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{8,20}$" title="Your password must be between 8 and 20 characters, contain at least 1 upper case letter, 1 lower case letter, and 1 number" class="form-control validate" id="password"
+                            placeholder="Password" required>
                         <small id="passwordHelpBlock" class="form-text text-muted">
                           Your password must be between 8-20 characters, contain at least 1 upper case letter, 1 lower case letter, and 1 number.
                         </small>
