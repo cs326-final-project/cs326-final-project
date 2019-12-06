@@ -1,7 +1,8 @@
 const express = require("express");
 const bodyParser = require("body-parser");
 const User = require("./models/user");
-const RedditData = require("./models/redditData");
+const RedditDataModel = require("./models/redditData");
+const FacebookDataModel = require("./models/facebookData");
 
 const mongoose = require("mongoose");
 const redditScraper = require("./scrapers/redditScraper");
@@ -37,18 +38,28 @@ app.get("/analyzeData", async(req, res) => {
 
     //TODO get logged in user id
     const userID = "42";
-    // create appropriate documents for reddit / facebook data
-    let RedditDataModel = mongoose.model('Reddit', RedditData);
+    // create a new document for reddit data
     let scrapedRedditData = scrapedData.reddit;
     scrapedRedditData.userID = userID;
-    let reddit_document = new RedditDataModel(scrapedData);
-    reddit_document.save(err=> {
-        if(err){
-            console.log("can't save reddit data");
-        }
-    });
+    let reddit_document = new RedditDataModel(scrapedRedditData);
+    try {
+        await reddit_document.save()
+    } catch (error){
+        console.log("failed to save reddit data");
+        console.log(error);
+    }
+    // create document for facebook data
+    let scrapedFacebookData = scrapedData.facebook;
+    scrapedFacebookData.userID = userID;
+    let facebook_document = new FacebookDataModel(scrapedFacebookData);
+    try {
+        await facebook_document.save();
+    } catch(error) {
+        console.log("failed to save facebook data");
+        console.log("error");
+    }
     // send success status?
-    // res.status(200).send(scrapedData);
+    res.sendStatus(201);
 });
 
 //serve static files from public dir
