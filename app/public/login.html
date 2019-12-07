@@ -18,35 +18,23 @@
     <div class="container">
         <div class="row text-center">
             <div class="col">
-                <h1>Create an Account</h1>
+                <h1>Login</h1>
             </div>
         </div>
 
         <div class="row pt-5 align-items-center">
-            <div class="col text-center">
-                <form action="/api/user" method="post" oninput="confirmPassword.setCustomValidity(confirmPassword.value != password.value ? 'Passwords do not match.' : '')" oninput="password.setCustomValidity(password.value)">
+            <div class="col pt-9 text-center">
+                <form action="/api/auth" method="post">
                     <div class="form-group p-2 pr-5 pl-5">
                         <input type="text" class="form-control" name="username" id="username" aria-describedby="nameHelp" placeholder="Username" required>
                         <div class="help-block with-errors"></div>
                     </div>
                     <div class="form-group p-2 pr-5 pl-5">
-                        <input type="email" class="form-control" name="email" id="email" aria-describedby="emailHelp" placeholder="name@example.com" required>
-                        <div class="help-block with-errors"></div>
-                    </div>
-                    <div class="form-group p-2 pr-5 pl-5">
-                        <input type="password" name="password" pattern="^(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{8,20}$" title="Your password must be between 8 and 20 characters, contain at least 1 upper case letter, 1 lower case letter, and 1 number" class="form-control validate" id="password"
-                            placeholder="Password" required>
-                        <small id="passwordHelpBlock" class="form-text text-muted">
-                          Your password must be between 8-20 characters, contain at least 1 upper case letter, 1 lower case letter, and 1 number.
-                        </small>
-                        <div class="help-block with-errors"></div>
-                    </div>
-                    <div class="form-group p-2 pr-5 pl-5">
-                        <input type="password" class="form-control" id="confirmPassword" placeholder="Confirm Password" required>
+                        <input type="password" name="password" class="form-control" id="password" placeholder="Password" required>
                         <div class="help-block with-errors"></div>
                     </div>
                     <div class="form-group pt-4">
-                        <button type="submit" class="btn btn-primary">Register</button>
+                        <button type="submit" class="btn btn-primary">Login</button>
                     </div>
                 </form>
             </div>

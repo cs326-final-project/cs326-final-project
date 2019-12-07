@@ -4,7 +4,10 @@ const jwt = require("jwt-simple");
 const User = require("../models/user");
 const router = require("express").Router();
 const bcrypt = require("bcrypt-nodejs");
+const dotenv = require("dotenv").config({ path: __dirname + "/../private.env" });
+
 const saltRounds = 10;
+const SECRET = process.env.SECRET;
 
 router.post("/user", (req, res) => {
     bcrypt.genSalt(saltRounds, (err, salt) => {
@@ -19,7 +22,7 @@ router.post("/user", (req, res) => {
                 if (err) {
                     res.status(500).json({ error: "Error creating user" });
                 } else {
-                    res.redirect("/index"); // New user created
+                    res.redirect("/login"); // New user created
                 }
             });
         });
@@ -38,7 +41,7 @@ router.post("/auth", (req, res) => {
                     res.status(400).json({ error: "Failed to authenticate." });
                 } else if (valid) {
                     const token = jwt.encode({ username: user.username }, SECRET);
-                    res.json({ token: token });
+                    res.cookie("x-auth", token).redirect("/index");
                 } else {
                     res.status(401).json({ error: "Wrong password" });
                 }
@@ -47,37 +50,23 @@ router.post("/auth", (req, res) => {
     });
 });
 
-router.get("/status", (req, res) => {
-    if (!req.headers["x-auth"]) {
-        return res.status(401).json({ error: "Missing X-Auth header" });
-    }
-
-    const token = req.headers["x-auth"];
-    try {
-        const decoded = jwt.decode(token, SECRET);
-
-        User.find({}, "username status", (err, users) => {
-            res.json(users);
-        });
-    } catch (ex) {
-        res.status(401).json({ error: "Invalid JWT" });
-    }
-});
+function getUser(req) {
+    return new Promise((resolve, reject) => {
+        if (!req.cookie["x-auth"]) {
+            resolve(null);
+        }
+    
+        const token = req.cookie["x-auth"];
+        try {
+            const decoded = jwt.decode(token, SECRET);
+    
+            User.find({}, "username status", (err, users) => {
+                resolve(users);
+            });
+        } catch (ex) {
+            reject(ex);
+        }
+    });
+}
 
 module.exports = router;
-
-// $(function() {
-//     let $password = $(".form-control[type='password']");
-//     let $passwordAlert = $(".password-alert");
-//     let $requirements = $(".requirements");
-//     let $leng = $(".leng");
-//     let $bigLetter = $(".big-letter");
-//     let $num = $(".num");
-//     let $specialChar = $(".special-char");
-//     let specialChars = "!@#$%^&*()-_=+[{]}\\|;:'\",<.>/?`~";
-//     let numbers = "0123456789";
-
-//     $password.on("focus", () => {
-//         $passwordAlert.show();
-//     });
-// });
