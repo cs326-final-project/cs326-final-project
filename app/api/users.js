@@ -55,13 +55,19 @@ function getUser(req) {
         if (!req.cookie["x-auth"]) {
             resolve(null);
         }
-    
+
         const token = req.cookie["x-auth"];
         try {
             const decoded = jwt.decode(token, SECRET);
-    
-            User.find({}, "username status", (err, users) => {
-                resolve(users);
+
+            User.findOne({ username: decoded }, (err, users) => {
+                if (err) reject(err);
+
+                if (!user) {
+                    reject();
+                } else {
+                    resolve(decoded);
+                }
             });
         } catch (ex) {
             reject(ex);
