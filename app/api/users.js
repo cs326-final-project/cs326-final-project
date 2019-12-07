@@ -4,7 +4,10 @@ const jwt = require("jwt-simple");
 const User = require("../models/user");
 const router = require("express").Router();
 const bcrypt = require("bcrypt-nodejs");
+const dotenv = require("dotenv").config({ path: __dirname + "/../private.env" });
+
 const saltRounds = 10;
+const SECRET = process.env.SECRET;
 
 router.post("/user", (req, res) => {
     bcrypt.genSalt(saltRounds, (err, salt) => {
@@ -12,36 +15,19 @@ router.post("/user", (req, res) => {
             let newUser = new User({
                 username: req.body.username,
                 password: hash,
-                status: req.body.status
+                email: req.body.email,
             });
 
             newUser.save((err) => {
                 if (err) {
                     res.status(500).json({ error: "Error creating user" });
                 } else {
-                    res.sendStatus(201); // New user created
+                    res.redirect("/login"); // New user created
                 }
             });
         });
     });
 });
-
-router.post("/create", (req, res) => {
-    console.log("test");
-    bcrypt.genSalt(saltRounds, (err, salt) => {
-        bcrypt.hash("man", salt, null, (err, hash) => {
-            let testUser = new User({
-                username: "big",
-                password: hash,
-                status: req.body.status
-            });
-
-            testUser.save((err, testUser) => {
-                res.send("user with name " + testUser.username + " was saved with ID of " + testUser._id);
-            });
-        });
-    });
-})
 
 router.post("/auth", (req, res) => {
     User.findOne({ username: req.body.username }, (err, user) => {
@@ -55,7 +41,7 @@ router.post("/auth", (req, res) => {
                     res.status(400).json({ error: "Failed to authenticate." });
                 } else if (valid) {
                     const token = jwt.encode({ username: user.username }, SECRET);
-                    res.json({ token: token });
+                    res.cookie("x-auth", token).redirect("/index");
                 } else {
                     res.status(401).json({ error: "Wrong password" });
                 }
@@ -64,21 +50,29 @@ router.post("/auth", (req, res) => {
     });
 });
 
-router.get("/status", (req, res) => {
-    if (!req.headers["x-auth"]) {
-        return res.status(401).json({ error: "Missing X-Auth header" });
-    }
+function getUser(req) {
+    return new Promise((resolve, reject) => {
+        if (!req.cookie["x-auth"]) {
+            resolve(null);
+        }
 
-    const token = req.headers["x-auth"];
-    try {
-        const decoded = jwt.decode(token, SECRET);
+        const token = req.cookie["x-auth"];
+        try {
+            const decoded = jwt.decode(token, SECRET);
 
-        User.find({}, "username status", (err, users) => {
-            res.json(users);
-        });
-    } catch (ex) {
-        res.status(401).json({ error: "Invalid JWT" });
-    }
-});
+            User.findOne({ username: decoded }, (err, users) => {
+                if (err) reject(err);
+
+                if (!user) {
+                    reject();
+                } else {
+                    resolve(decoded);
+                }
+            });
+        } catch (ex) {
+            reject(ex);
+        }
+    });
+}
 
 module.exports = router;
