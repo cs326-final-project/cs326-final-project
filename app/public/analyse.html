@@ -1,6 +1,5 @@
 <html>
 <title>Digital Mirror</title>
-
 <head>
     <!-- meta tags -->
     <meta charset="utf-8">
@@ -17,8 +16,14 @@
     <script src="./wordcloud.js"></script>
 </head>
 
-<body class="p-5 mb-2 bg-dark text-white" id="background">
-    <div id="wordcloud" class="container">
+<div id="nav-placeholder"></div>
+<script> 
+    $(function(){
+        $("#nav-placeholder").load("./navbar.html");
+    });
+</script>
+<body class="mb-2 bg-dark text-white" id="background">
+    <div class="container">
         <div class="row text-center">
             <div class="col">
                 <div class="typeText" id="fast" style="display: inline-block;">
