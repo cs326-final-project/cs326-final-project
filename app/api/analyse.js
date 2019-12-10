@@ -3,6 +3,8 @@ const router = require("express").Router();
 const RedditDataModel = require("../models/redditData");
 const FacebookDataModel = require("../models/facebookData");
 
+var Sentiment = require('sentiment');
+var sentiment = new Sentiment();
 
 router.get("/analyse", async (req, res) => {
     
@@ -13,7 +15,7 @@ router.get("/analyse", async (req, res) => {
     // TO DO: get user id from req
     // assume the request contains the userID
     // const uid = req.body.userID;
-    let uid = "5ded7f0d17af0a0ab8fba238";
+    let uid ="5deee516f0307e3a6011909e";
 
     if(!uid){
         res.sendStatus(404);
@@ -78,9 +80,19 @@ router.get("/analyse", async (req, res) => {
         results.push({"word":word, "count":allwords[word]});
     }
 
+    let allPosts = "";
+    if (redditData) {
+        for (let foo of [redditData.comments, redditData.submissions, redditData.upvoted, redditData.downvoted]) {
+            for (let item of foo) {
+                allPosts.concat(item.text);
+            }
+        }
+    }
 
+    var senti_result = sentiment.analyze(allPosts);
+    var sentiNumber = senti_result.score;
     //send response
-    res.status(200).json(results);
+    res.status(200).json({wordcount: results, score: sentiNumber});
 
 });
 
