@@ -12,37 +12,18 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js" integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous"></script>
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/handlebars.js/4.4.2/handlebars.min.js" integrity="sha256-oh7N5nthuhldTk8/34Za7FXv3BkeVN9vAnYk/pLfC78=" crossorigin="anonymous"></script>
-    <script src="../api/analyse.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/d3/5.12.0/d3.min.js" integrity="sha256-+9Mf3cAVmxxudDsr1XwXUeRZFtvdWVYdq5/vcgiYyNU=" crossorigin="anonymous"></script>
+    <script src="./lib/d3-cloud.js"></script>
+    <script src="./wordcloud.js"></script>
 </head>
 
 <body class="p-5 mb-2 bg-dark text-white" id="background">
-    <div class="container">
+    <div id="wordcloud" class="container">
         <div class="row text-center">
             <div class="col">
                 <div class="typeText" id="fast" style="display: inline-block;">
                     <h1>Analysing Your Data...</h1>
                 </div>
-            </div>
-        </div>
-
-        <div class="row pt-5 align-items-center">
-            <div class="col pt-9 text-center">
-                <form action="/api/analyse" method="get">
-                    <div class="form-group pt-4">
-                        <button type="submit" class="btn btn-primary">REFLECT</button>
-                    </div>
-                </form>
-            </div>
-            <div class="col">
-                <h2>
-                    Your Data is safe with us.
-                    <br></br>
-                    The information you provide will never be seen by anyone else, not even us.
-                    <br></br>
-                    Digital Mirror will never post to any of your accounts.
-                    <br></br>
-                    You will always have the ability to unlink your accounts, or delete you Digital Reflection entirely.
-                </h2>
             </div>
         </div>
     </div>
