@@ -3,6 +3,7 @@ const bodyParser = require("body-parser");
 const User = require("./models/user");
 const RedditDataModel = require("./models/redditData");
 const FacebookDataModel = require("./models/facebookData");
+const cookieParser = require("cookie-parser");
 
 const mongoose = require("mongoose");
 const redditScraper = require("./scrapers/redditScraper");
@@ -26,6 +27,7 @@ const router = express.Router();
 router.use(bodyParser.urlencoded({
     extended: false
 }));
+router.use(cookieParser());
 router.use("/api", require("./api/users"));
 router.use("/api", require("./api/redditdata"));
 
