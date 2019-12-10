@@ -1,6 +1,7 @@
 const FONT = "Impact";
 const SIZE = [300, 300];
 // TODO get word frequency data from the server.
+/*
 const WORDS = [
 	{word: "Hello", count: 3},
 	{word: "World", count: 4},
@@ -9,7 +10,8 @@ const WORDS = [
 	{word: "some", count: 1},
 	{word: "words", count: 6},
 ];
-
+*/
+let WORDS = [];
 
 const totalWords = WORDS.reduce((total, word) => total + word.count, 0);
 const layout = d3Cloud()
@@ -44,5 +46,6 @@ function draw(words) {
 }
 
 document.addEventListener("DOMContentLoaded", () => {
+	// ajax request to analyse- need WORDS
 	layout.start();
 });
