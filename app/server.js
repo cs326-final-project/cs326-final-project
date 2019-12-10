@@ -31,6 +31,8 @@ router.use(cookieParser());
 router.use("/api", require("./api/users"));
 router.use("/api", require("./api/redditdata"));
 
+router.use("/api", require("./api/analyse"));
+
 
 function getUser(cookie) {
     return new Promise((resolve, reject) => {
@@ -60,8 +62,7 @@ function getUser(cookie) {
 
 router.get("/scrape", async(req, res) => {
     console.log(`Received a request to analyze a user's data with the query values ${Object.entries(req.query).map((pair) => pair.join(": ")).join(", ")}`);
-    
-    
+
     const scrapedData = {};
     if (req.query.redditCode) {
         scrapedData.reddit = await redditScraper.scrapeUser(req.query.redditCode);
@@ -70,11 +71,7 @@ router.get("/scrape", async(req, res) => {
         scrapedData.facebook = await facebookScraper.scrapeUser(req.query.facebookCode);
     }
 
-    //TODO get logged in user id
-    // const userID = "42";
-    //let token = window.localStorage.getItem("token");
-    //'x-auth=eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJ1c2VybmFtZSI6InRlc3Ryb2JlcnQifQ.ILGdmHYwNoen9CwS1KIR9aDS_nNNNUr8EITUM9Flges'
-    let user = await getUser(req.headers.cookie.substring(7));
+    let user = await getUser(req.headers.cookie.substring(7)); // xD
     if(!user){
         console.log("failed to find user");
         res.status(500).send("failed to find user");
@@ -83,6 +80,8 @@ router.get("/scrape", async(req, res) => {
     // create a new document for reddit data
     if(scrapedData.reddit){
         let scrapedRedditData = scrapedData.reddit;
+        
+
         scrapedRedditData.userID = userID;
         let reddit_document = new RedditDataModel(scrapedRedditData);
         try {
@@ -104,10 +103,7 @@ router.get("/scrape", async(req, res) => {
             console.log("error");
         }
     }
-    // send success status?
-    // res.redirect("/analyse");
-    res.redirect(`/analyse?userID=${userID}`);
-
+    res.redirect("/analyse")
 });
 
 
@@ -117,6 +113,7 @@ router.get("/scrape", async(req, res) => {
 app.use(router);
 
 
+app.get('/', function(req, res) {res.redirect('/index')});
 
 //serve static files from public dir
 app.use(express.static("public", { index: false, extensions: ["html"] }));
