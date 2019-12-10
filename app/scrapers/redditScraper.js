@@ -11,12 +11,6 @@ const REDIRECT_URL = process.env.REDDIT_REDIRECT_URL;
 
 // TODO handle errors more gracefully.
 async function scrapeUser(authorizationCode) {
-    console.log("------------------")
-    console.log(CLIENT_ID);
-    console.log(CLIENT_SECRET);
-    console.log(REDIRECT_URL);
-    console.log("------------------")
-
     const wrapper = await snoowrap.fromAuthCode({
         code: authorizationCode,
         userAgent: "Digital Mirror (by /u/Derpthemeus)",
