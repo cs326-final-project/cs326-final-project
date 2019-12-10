@@ -1,13 +1,14 @@
 const FONT = "Impact";
-const SIZE = [300, 300];
+const SIZE = [800, 650];
 
 function createWordCloud(WORDS) {
+	WORDS = WORDS.sort((a, b) => a.count - b.count);
 	const totalWords = WORDS.reduce((total, word) => total + word.count, 0);
 	const layout = d3Cloud()
 		.size(SIZE)
-		.words(WORDS.map((word) => ({word: word.word, size: 10 + 80 * word.count / totalWords})))
+		.words(WORDS.map((word) => ({word: word.word, size: 30 + 5000 * word.count / totalWords, rotate: ~~(Math.random() * 2) * 90})))
 		.padding(3)
-		.rotate(0)
+		.rotate((d) => d.rotate)
 		.font(FONT)
 		.fontSize((d) => d.size)
 		.on("end", draw);
@@ -29,7 +30,7 @@ function createWordCloud(WORDS) {
 			// TODO use different colors to make everything pretty.
 			.style("fill", "black")
 			.attr("text-anchor", "middle")
-			.attr("transform", (d) => `translate(${d.x}, ${d.y})`)
+			.attr("transform", (d) => `translate(${d.x}, ${d.y})rotate(${d.rotate})`)
 			.text((d) => d.word);
 		console.log("Finished drawing wordcloud")
 	}
@@ -37,9 +38,10 @@ function createWordCloud(WORDS) {
 }
 
 function pullData() {
-	$.get("/api/analyse", (words) => {
-		console.log(words);
-		createWordCloud(words.wordcount);
+	$.get("/api/analyse", (data) => {
+		console.log(data);
+		createWordCloud(data.wordcount);
+		$("#sentiscore").text(`Your sentiment score is ${data.score}. ${data.score < 0 ? "You should be more happy" : "You are a wonderful person"}!`);
 	}).fail((err) => {
 		if (err.status === 404) {
 			setTimeout(pullData, 3000);
