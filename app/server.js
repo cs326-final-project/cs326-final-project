@@ -101,7 +101,6 @@ router.get("/scrape", async(req, res) => {
             console.log("error");
         }
     }
-    // TO DO: redirect to viewData OR hit analyse endpoint?    
     res.redirect("/analyse")
 });
 
