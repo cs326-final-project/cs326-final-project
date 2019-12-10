@@ -43,7 +43,7 @@ router.post("/auth", (req, res) => {
                     res.status(400).json({ error: "Failed to authenticate." });
                 } else if (valid) {
                     const token = jwt.encode({ username: user.username }, SECRET);
-                    res.cookie("x-auth", token).redirect("/index");
+                    res.clearCookie("x-auth").cookie("x-auth", token).redirect("/index");
                 } else {
                     res.status(401).json({ error: "Wrong password" });
                 }
