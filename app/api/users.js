@@ -49,7 +49,7 @@ router.post("/auth", (req, res) => {
         }
     });
 });
-
+ 
 function getUser(req) {
     return new Promise((resolve, reject) => {
         if (!req.cookie["x-auth"]) {
