@@ -27,7 +27,7 @@ router.get("/analyse", async (req, res) => {
     let allwords={};
     if (redditdata) {
         // console.log("HAHAHA WE FOUND THE REDDIT DATA");
-        for (let foo of [redditdata.comments,redditdata.submissions,redditdata.upvoted,redditdata.downvoted]){
+        for (let foo of [redditdata.comments,redditdata.submissions]){
             for (let item of foo) {
                 // remove punctuation, split string into array of words
                 let words = item.text.replace(/[.,\/#!$%\^&\*;:{}=\-_`~()]/g,"").split(" ");
@@ -77,10 +77,10 @@ router.get("/analyse", async (req, res) => {
     }
 
     let allPosts = "";
-    if (redditData) {
-        for (let foo of [redditData.comments, redditData.submissions, redditData.upvoted, redditData.downvoted]) {
+    if (redditdata) {
+        for (let foo of [redditdata.comments, redditdata.submissions]) {
             for (let item of foo) {
-                allPosts.concat(item.text);
+                allPosts = allPosts.concat(item.text);
             }
         }
     }
