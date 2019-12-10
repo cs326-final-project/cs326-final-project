@@ -4,6 +4,8 @@ const RedditDataModel = require("../models/redditData");
 const FacebookDataModel = require("../models/facebookData");
 const getUser = require("../api/getUser");
 
+var Sentiment = require('sentiment');
+var sentiment = new Sentiment();
 
 router.get("/analyse", async (req, res) => {
 
@@ -25,7 +27,7 @@ router.get("/analyse", async (req, res) => {
     let allwords={};
     if (redditdata) {
         // console.log("HAHAHA WE FOUND THE REDDIT DATA");
-        for (let foo of [redditdata.comments,redditdata.submissions,redditdata.upvoted,redditdata.downvoted]){
+        for (let foo of [redditdata.comments,redditdata.submissions]){
             for (let item of foo) {
                 // remove punctuation, split string into array of words
                 let words = item.text.replace(/[.,\/#!$%\^&\*;:{}=\-_`~()]/g,"").split(" ");
@@ -74,9 +76,19 @@ router.get("/analyse", async (req, res) => {
         results.push({"word":word, "count":allwords[word]});
     }
 
+    let allPosts = "";
+    if (redditdata) {
+        for (let foo of [redditdata.comments, redditdata.submissions]) {
+            for (let item of foo) {
+                allPosts = allPosts.concat(item.text);
+            }
+        }
+    }
 
+    var senti_result = sentiment.analyze(allPosts);
+    var sentiNumber = senti_result.score;
     //send response
-    res.status(200).json(results);
+    res.status(200).json({wordcount: results, score: sentiNumber});
 
 });
 
