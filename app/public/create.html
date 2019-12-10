@@ -1,0 +1,72 @@
+<html>
+<title>Digital Mirror</title>
+
+<head>
+    <!-- meta tags -->
+    <meta charset="utf-8">
+    <meta name="create" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <!-- Bootstrap CSS and scripts -->
+    <link href="styles/style.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+    <script src="https://code.jquery.com/jquery-3.4.1.min.js" integrity="sha256-CSXorXvZcTkaix6Yvo6HppcZGetbYMGWSFlBw8HfCJo=" crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js" integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/handlebars.js/4.4.2/handlebars.min.js" integrity="sha256-oh7N5nthuhldTk8/34Za7FXv3BkeVN9vAnYk/pLfC78=" crossorigin="anonymous"></script>
+    <script src="../api/users.js"></script>
+</head>
+
+<body class="p-5 mb-2 bg-dark text-white" id="background">
+    <div class="container">
+        <div class="row text-center">
+            <div class="col">
+                <div class="typeText" style="display:inline-block">
+                    <h1>Create an Account</h1>
+                </div>
+            </div>
+        </div>
+
+        <div class="row pt-5 align-items-center">
+            <div class="col text-center">
+                <form action="/api/user" method="post" oninput="confirmPassword.setCustomValidity(confirmPassword.value != password.value ? 'Passwords do not match.' : '')" oninput="password.setCustomValidity(password.value)">
+                    <div class="form-group p-2 pr-5 pl-5">
+                        <input type="text" class="form-control" name="username" id="username" aria-describedby="nameHelp" placeholder="Username" required>
+                        <div class="help-block with-errors"></div>
+                    </div>
+                    <div class="form-group p-2 pr-5 pl-5">
+                        <input type="email" class="form-control" name="email" id="email" aria-describedby="emailHelp" placeholder="name@example.com" required>
+                        <div class="help-block with-errors"></div>
+                    </div>
+                    <div class="form-group p-2 pr-5 pl-5">
+                        <input type="password" name="password" pattern="^(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{8,20}$" title="Your password must be between 8 and 20 characters, contain at least 1 upper case letter, 1 lower case letter, and 1 number" class="form-control validate" id="password"
+                            placeholder="Password" required>
+                        <small id="passwordHelpBlock" class="form-text">
+                          Your password must be between 8-20 characters, contain at least 1 upper case letter, 1 lower case letter, and 1 number.
+                        </small>
+                        <div class="help-block with-errors"></div>
+                    </div>
+                    <div class="form-group p-2 pr-5 pl-5">
+                        <input type="password" class="form-control" id="confirmPassword" placeholder="Confirm Password" required>
+                        <div class="help-block with-errors"></div>
+                    </div>
+                    <div class="form-group pt-4">
+                        <button type="submit" class="btn btn-primary">Register</button>
+                    </div>
+                </form>
+            </div>
+            <div class="col">
+                <h2>
+                    Your Data is safe with us.
+                    <br></br>
+                    The information you provide will never be seen by anyone else, not even us.
+                    <br></br>
+                    Digital Mirror will never post to any of your accounts.
+                    <br></br>
+                    You will always have the ability to unlink your accounts, or delete your Digital Reflection&trade; entirely.
+                </h2>
+            </div>
+        </div>
+    </div>
+
+</body>
+
+</html>

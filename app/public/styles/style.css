@@ -5,6 +5,10 @@
     width:50%;
     left:25%;
 }
+small {
+    text-shadow: 0 0 5px rgba(200, 200, 200, 0.0);
+}
+
 body {
     text-shadow: 0 0 5px #C8C8C8;
 }
@@ -12,15 +16,7 @@ body a{
     
     text-shadow: 0 0 5px rgba(200, 200, 200, 0.25);
 }
-body::after {
-    background: repeating-linear-gradient(
-      0deg,
-      rgba(black, 0.15),
-      rgba(black, 0.15) 1px,
-      transparent 1px,
-      transparent 2px
-    );
-}
+
 a:hover{
     background-color: white;
     text-decoration: none;
@@ -60,6 +56,16 @@ h1 {
     letter-spacing: .15em; /* Adjust as needed */
     animation: 
       typing 3.5s steps(40, end),
+      blink-caret 1s step-end infinite;
+  }
+  #fast.typeText h1 {
+    overflow: hidden; /* Ensures the content is not revealed until the animation */
+    border-right: .15em solid white; /* The typwriter cursor */
+    white-space: nowrap; /* Keeps the content on a single line */
+    margin: 0 auto; /* Gives that scrolling effect as the typing happens */
+    letter-spacing: .15em; /* Adjust as needed */
+    animation: 
+      typing 1s steps(20, end),
       blink-caret 1s step-end infinite;
   }
   
