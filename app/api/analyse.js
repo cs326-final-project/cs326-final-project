@@ -2,22 +2,18 @@ const router = require("express").Router();
 
 const RedditDataModel = require("../models/redditData");
 const FacebookDataModel = require("../models/facebookData");
+const getUser = require("../api/getUser");
 
 
 router.get("/analyse", async (req, res) => {
-    
-    console.log(req.cookie);
 
     let results=[];
-    
-    // TO DO: get user id from req
-    // assume the request contains the userID
-    // const uid = req.body.userID;
-    let uid = "5ded7f0d17af0a0ab8fba238";
+    const user = await getUser(req);
 
-    if(!uid){
+    if(!user){
         res.sendStatus(404);
     }
+    const uid = user.id;
     // query reddit data for user
     let redditdata;
     try {
@@ -32,7 +28,7 @@ router.get("/analyse", async (req, res) => {
         for (let foo of [redditdata.comments,redditdata.submissions,redditdata.upvoted,redditdata.downvoted]){
             for (let item of foo) {
                 // remove punctuation, split string into array of words
-                let words = item.text.replace(/[.,\/#!$%\^&\*;:{}=\-_`~()]/g,"").split(" "); 
+                let words = item.text.replace(/[.,\/#!$%\^&\*;:{}=\-_`~()]/g,"").split(" ");
                 // count word frequency
                 for (let word of words){
                     if (allwords[word]){
@@ -46,8 +42,8 @@ router.get("/analyse", async (req, res) => {
 
     }
 
-    
-    
+
+
     // query facebook data for user
      // query reddit data for user
      let fbdata;
@@ -60,7 +56,7 @@ router.get("/analyse", async (req, res) => {
      if (fbdata) {
         //  console.log("HAHAHA WE FOUND THE facebook DATA");
          for (let post of fbdata.posts){
-            let words = post.message.replace(/[.,\/#!$%\^&\*;:{}=\-_`~()]/g,"").split(" "); 
+            let words = post.message.replace(/[.,\/#!$%\^&\*;:{}=\-_`~()]/g,"").split(" ");
             for (let word of words){
                 if (allwords[word]){
                     allwords[word]+=1; // add 1 to count
@@ -69,7 +65,7 @@ router.get("/analyse", async (req, res) => {
                 }
             }
          }
-         
+
      }
 
     // transform redditwords --> words like this
