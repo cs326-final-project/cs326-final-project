@@ -37,19 +37,15 @@
             <a class="nav-link" href="./analyse">View Reflection </a>
         </li>
         </ul>
-        <!-- <span id="hello-user" class="navbar-text">
-        </span> -->
+        <span id="hello-user" class="navbar-text">
+        </span>
     </div>
 </nav>
-<!-- <script>
-    let username = null;
-    $.getScript("../api/getUser.js", function() {
-        username = getUser().username;
-        $("#hello-user").html = username;
-    })
-    console.log(username);
-    console.log("test");
-    $("#hello-user").html = username;
-</script> -->
+<script>
+    console.log(document.cookie);
+    $("#hello-user").html("Hello, " + $.getScript("../api/getUser.js", function(jd) {
+        showUser().username;
+    }));
+</script>
 
 </html>
